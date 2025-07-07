@@ -1,0 +1,34 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+title Диаграмма контейнеров
+
+Person(Пользователь, "Пользователь")
+System(Сайт, "Сайт")
+System(Интернет_банк, "Интернет-банк")
+System(Микросервис_депозитов, "Микросервис депозитов")
+System(Api_gateway, "Api gateway")
+System(АБС, "АБС")
+System_Ext(База_данных, "База данных")
+
+
+Rel(Пользователь, Api_gateway, "api call")
+Rel(Api_gateway, Интернет_банк, "Управление кредитами/договорами")
+Rel(Api_gateway, Микросервис_депозитов, "Управление депозитами")
+
+Rel(Пользователь, Сайт, "Офрмление депозита")
+
+
+Rel(Интернет_банк, АБС, "обмен зашифрованными данными")
+Rel(Микросервис_депозитов, АБС, "обмен зашифрованными данными")
+Rel(Сайт, АБС, "обмен зашифрованными данными")
+
+Rel_Neighbor(АБС, Интернет_банк, "получение актуальных ставок")
+Rel_Neighbor(АБС, Микросервис_депозитов, "получение актуальных ставок")
+Rel_Neighbor(АБС, Сайт, "получение актуальных ставок")
+
+Rel(АБС, База_данных, "обмен данными")
+
+@enduml
