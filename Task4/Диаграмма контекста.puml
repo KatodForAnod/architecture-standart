@@ -1,0 +1,20 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+title Диаграмма контекса
+
+Person(Пользователь, "Пользователь")
+System(Колл_центр, "Колл-центр", "Обслуживание клиентов")
+System(Сайт, "Сайт", "Выполнение операций")
+System(Банк, "Банк")
+
+
+System(База_данных, "База данных")
+
+Rel(Пользователь, Колл_центр, "Запрос на консультацию")
+Rel(Колл_центр, Сайт, "Получение данных об актуальных ставках")
+Rel(Сайт, Банк, "Обмен зашифрованными данными")
+Rel(Банк, База_данных, "")
+@enduml
